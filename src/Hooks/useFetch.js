@@ -33,8 +33,8 @@ function useFetch(baseUrl) {
       setResults(data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
+      console.log(error)
     }
   }
 

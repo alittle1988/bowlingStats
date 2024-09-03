@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import useFetch from "../Hooks/useFetch";
 import PropTypes from 'prop-types'
 import { quantum } from "ldrs";
 function LoginForm(props) {
-  const { onLoginSubmitClick } = props;
+  const { onLoginSubmitClick, onNewUserClick } = props;
   const { get, loading, results } = useFetch("http://localhost:3000");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -65,7 +65,14 @@ function LoginForm(props) {
             />
           </Form.Group>
           {errorVal === '' ? <div></div> : <p className="text-danger">{errorVal}</p>}
+          <Row>
+            <Col lg={1}>
           <Button type="submit">Sumbit</Button>
+            </Col>
+            <Col>
+                <Button type='button' onClick={onNewUserClick}>Create New User</Button>
+            </Col>
+          </Row>
         </Form>
       )}
     </>
@@ -75,5 +82,6 @@ function LoginForm(props) {
 export default LoginForm;
 
 LoginForm.propTypes = {
-    onLoginSubmitClick: PropTypes.func
+    onLoginSubmitClick: PropTypes.func,
+    onNewUserClick: PropTypes.func,
 }
