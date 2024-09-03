@@ -10,6 +10,7 @@ function useFetch(baseUrl) {
       const response = await fetch(baseUrl + url);
 
       const data = await response.json();
+
       setResults(data);
       setLoading(false);
     } catch (error) {
@@ -68,9 +69,7 @@ function useFetch(baseUrl) {
       });
       const data = await response;
       setLoading(false);
-     
     } catch (error) {
-      
       setLoading(false);
     }
   }

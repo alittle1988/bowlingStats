@@ -1,0 +1,8 @@
+/* Header */
+
+.background-img {
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/007/470/362/small/red-bowling-ball-striking-against-pins-3d-render-photo.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}

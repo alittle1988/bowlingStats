@@ -1,40 +1,26 @@
-import { Button } from "react-bootstrap"
+import { Container, Row } from "react-bootstrap";
 import useFetch from "../Hooks/useFetch";
-import { miyagi } from 'ldrs';
+import { miyagi } from "ldrs";
+import PropTypes from 'prop-types'
 
-function Header() {
-    const {get, post, put,remove, results, loading} = useFetch('http://localhost:3000')
-    miyagi.register()
-    const user = {
-        firstName: 'Andrew',
-        lastName: 'Little',
-        id: 1,
-        dateJoined: new Date().toDateString(),
-        games: [],
-        password: "password",
-        userName: 'alittle1988'
-    }
- 
+function Header(props) {
+  const { onLogoutClick } = props;
+  miyagi.register();
 
-    function handleButtonClick() {
-        //get('/users')
-        //get(`/users/${user.userName}?password=${user.password}`)
-        /*post('/users', {
-            firstName: 'Melissa',
-            lastName: 'Kahn'
-        })*/
-        //put(`/users/${user.id}`, user)
-        remove(`/users/${user.id}`, user)
-    }
-    console.log(results)
+  function handleButtonClick() {}
+
   return (
-    <div>
-        <h1>Header</h1>
-        <Button onClick={handleButtonClick}>Press me</Button>
-        {loading ? <l-miyagi size="35" stroke="3.5" speed="0.9" color="red"></l-miyagi> : <div></div>}
-        {results ? <div>{results.firstName}</div> : <div></div>}
-    </div>
-  )
+    <Container >
+      <Row className="text-end text-primary">
+        <p onClick={onLogoutClick}>Logout</p>
+      </Row>
+      <h1 className="text-center my-5 text-light">Welcome to Bowling Stats</h1>
+    </Container>
+  );
 }
 
-export default Header
+export default Header;
+
+Header.propTypes = {
+  onLogoutClick: PropTypes.func
+}
