@@ -4,7 +4,7 @@ import { miyagi } from "ldrs";
 import PropTypes from 'prop-types'
 
 function Header(props) {
-  const { onLogoutClick } = props;
+  const { onLogoutClick, user } = props;
   miyagi.register();
 
   function handleButtonClick() {}
@@ -14,7 +14,7 @@ function Header(props) {
       <Row className="text-end text-primary">
         <p onClick={onLogoutClick}>Logout</p>
       </Row>
-      <h1 className="text-center my-5 text-light">Welcome to Bowling Stats</h1>
+      <h1 className="text-center my-5 text-light">Welcome {user.firstName ? `${user.firstName} ${user.lastName}` : 'Bowling Stats'}</h1>
     </Container>
   );
 }
@@ -22,5 +22,6 @@ function Header(props) {
 export default Header;
 
 Header.propTypes = {
-  onLogoutClick: PropTypes.func
+  onLogoutClick: PropTypes.func,
+  user: PropTypes.object
 }

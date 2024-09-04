@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 function LoginPage(props) {
     const {onLoginSubmitClick} = props;
-    const [newUserSwitch, setNewUserSwitch] = useState(true);
+    const [newUserSwitch, setNewUserSwitch] = useState(false);
 
     function handleNewUserClick() {
       setNewUserSwitch(!newUserSwitch)

@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Header from "./Components/Header";
+import Home from "./Components/Home";
+import { Routes, Route } from "react-router-dom";
 import LoginPage from "./Components/LoginPage";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -24,13 +26,13 @@ function App() {
   return (
     <>
       <Container fluid className="background-img">
-        <Header onLogoutClick={handleLogoutClick}></Header>
+        <Header onLogoutClick={handleLogoutClick} user={user}></Header>
         <hr className="text-light mb-5"></hr>
-        {isLoggedin ? (
-          <div></div>
-        ) : (
-          <LoginPage onLoginSubmitClick={handleLoginSubmitClick} />
-        )}
+        <Routes>
+          <Route path="/" element={<Home isLoggedIn={isLoggedin} onLoginSubmitClick={handleLoginSubmitClick}></Home>} />
+          
+            
+        </Routes>
       </Container>
     </>
   );
