@@ -1,20 +1,20 @@
 import { Container, Row } from "react-bootstrap";
-import useFetch from "../Hooks/useFetch";
+import { Link } from "react-router-dom";
 import { miyagi } from "ldrs";
 import PropTypes from 'prop-types'
 
 function Header(props) {
-  const { onLogoutClick, user } = props;
+  const { onLogoutClick, isLoggedIn } = props;
   miyagi.register();
 
-  function handleButtonClick() {}
+  
 
   return (
-    <Container >
+    <Container fluid>
       <Row className="text-end text-primary">
-        <p onClick={onLogoutClick}>Logout</p>
+        <Link to="/" className="navLink" onClick={onLogoutClick}>Logout</Link>
       </Row>
-      <h1 className="text-center my-5 text-light">Welcome {user.firstName ? `${user.firstName} ${user.lastName}` : 'Bowling Stats'}</h1>
+      <Link to="/"><h1 className="text-center mb-3 text-light text-decoration-underline ">{isLoggedIn ? "The Bowling Stats" : 'Welcome to Bowling Stats'}</h1></Link>
     </Container>
   );
 }
@@ -23,5 +23,5 @@ export default Header;
 
 Header.propTypes = {
   onLogoutClick: PropTypes.func,
-  user: PropTypes.object
+  isLoggedIn: PropTypes.bool
 }

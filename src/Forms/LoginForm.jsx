@@ -15,18 +15,21 @@ function LoginForm(props) {
   
   function handleSubmitClick(e) {
     e.preventDefault();
+   
+    
     get(`/users/${userName}?password=${password}`)
     
   }
 
   useEffect(() => {
+    
     if(results) {
         if(results.error) {
             setErrorVal(results.error)
             setUserName('')
             setPassword('')
         } else {
-            onLoginSubmitClick(results)
+            onLoginSubmitClick(results.data)
         }
     } 
   }, [results, onLoginSubmitClick])
@@ -43,7 +46,7 @@ function LoginForm(props) {
             </Form.Label>
             <Form.Control
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e) => setUserName(e.target.value.toLowerCase())}
               id="userName"
               type="text"
               placeholder="Enter Username"

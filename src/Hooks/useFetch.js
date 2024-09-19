@@ -34,7 +34,7 @@ function useFetch(baseUrl) {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -70,6 +70,7 @@ function useFetch(baseUrl) {
       const data = await response;
       setLoading(false);
     } catch (error) {
+      
       setLoading(false);
     }
   }
