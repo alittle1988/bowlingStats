@@ -4,7 +4,7 @@ import NewGameForm from "../Forms/NewGameForm";
 import PropTypes from "prop-types";
 import useFetch from "../Hooks/useFetch.js";
 import { quantum } from "ldrs";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 function AddGames(props) {
   const { user, onResetUser } = props;
@@ -43,7 +43,7 @@ function AddGames(props) {
         break;
     }
   }
-  
+
   function handleAddGameSubmitClick(e) {
     e.preventDefault();
 
@@ -51,10 +51,7 @@ function AddGames(props) {
       setVal(true);
       return;
     }
-    if (numGames === 1 && game1 === 0) {
-      setVal(true);
-      return;
-    }
+
     let totalPins =
       Number(game1) +
       Number(game2) +
@@ -66,16 +63,24 @@ function AddGames(props) {
     const { sessions, average, ...rest } = user;
     switch (numGames) {
       case 1:
+        if (game1 === 0) {
+          setVal(true);
+          return;
+        }
         newSesh = {
           date: date,
           game1: game1,
           totalPins: totalPins,
           seshAvg: Math.round(seshAvg * 10) / 10,
           numOfGames: numGames,
-          id: uuidv4()
+          id: uuidv4(),
         };
         break;
       case 2:
+        if (game1 === 0 || game2 === 0) {
+          setVal(true);
+          return;
+        }
         newSesh = {
           date: date,
           game1: game1,
@@ -83,10 +88,14 @@ function AddGames(props) {
           totalPins: totalPins,
           seshAvg: Math.round(seshAvg * 10) / 10,
           numOfGames: numGames,
-          id: uuidv4()
+          id: uuidv4(),
         };
         break;
       case 3:
+        if (game1 === 0 || game2 === 0 || game3 === 0) {
+          setVal(true);
+          return;
+        }
         newSesh = {
           date: date,
           game1: game1,
@@ -95,10 +104,14 @@ function AddGames(props) {
           totalPins: totalPins,
           seshAvg: Math.round(seshAvg * 10) / 10,
           numOfGames: numGames,
-          id: uuidv4()
+          id: uuidv4(),
         };
         break;
       case 4:
+        if (game1 === 0 || game2 === 0 || game3 === 0 || game4 === 0) {
+          setVal(true);
+          return;
+        }
         newSesh = {
           date: date,
           game1: game1,
@@ -108,10 +121,20 @@ function AddGames(props) {
           totalPins: totalPins,
           seshAvg: Math.round(seshAvg * 10) / 10,
           numOfGames: numGames,
-          id: uuidv4()
+          id: uuidv4(),
         };
         break;
       case 5:
+        if (
+          game1 === 0 ||
+          game2 === 0 ||
+          game3 === 0 ||
+          game4 === 0 ||
+          game5 === 0
+        ) {
+          setVal(true);
+          return;
+        }
         newSesh = {
           date: date,
           game1: game1,
@@ -122,7 +145,7 @@ function AddGames(props) {
           totalPins: totalPins,
           seshAvg: Math.round(seshAvg * 10) / 10,
           numOfGames: numGames,
-          id: uuidv4()
+          id: uuidv4(),
         };
         break;
       default:
@@ -157,7 +180,7 @@ function AddGames(props) {
         <Row>
           <Col lg="6">
             <h4 className="mt-4">Add Games</h4>
-            <p className="m-0">First a select date</p>
+            <p className="m-0">First select a date</p>
             <p className="m-0">Then add games</p>
             <hr className="w-25 m-0"></hr>
             <Form className="mt-4" onSubmit={handleAddGameSubmitClick}>
@@ -194,33 +217,49 @@ function AddGames(props) {
               <NewGameForm
                 disabled={date === "" ? true : false}
                 game={1}
-                gameScore={game1.score}
+                gameScore={game1}
                 onGameChange={handleGameChange}
               />
               {val && game1 === 0 ? (
                 <Form.Text className="text-danger">
-                  Please Enter score
+                  Please Enter Score
                 </Form.Text>
               ) : (
                 <div></div>
               )}
+
               {numGames >= 2 ? (
                 <NewGameForm
                   disabled={date === "" ? true : false}
                   game={2}
-                  gameScore={game2.score}
+                  gameScore={game2}
                   onGameChange={handleGameChange}
                 />
               ) : (
                 <div></div>
               )}
+              {val && game2 === 0 ? (
+                <Form.Text className="text-danger">
+                  Please Enter Score
+                </Form.Text>
+              ) : (
+                <div></div>
+              )}
+
               {numGames >= 3 ? (
                 <NewGameForm
                   disabled={date === "" ? true : false}
                   game={3}
-                  gameScore={game3.score}
+                  gameScore={game3}
                   onGameChange={handleGameChange}
                 />
+              ) : (
+                <div></div>
+              )}
+              {val && game3 === 0 ? (
+                <Form.Text className="text-danger">
+                  Please Enter Score
+                </Form.Text>
               ) : (
                 <div></div>
               )}
@@ -228,9 +267,16 @@ function AddGames(props) {
                 <NewGameForm
                   disabled={date === "" ? true : false}
                   game={4}
-                  gameScore={game4.score}
+                  gameScore={game4}
                   onGameChange={handleGameChange}
                 />
+              ) : (
+                <div></div>
+              )}
+              {val && game4 === 0 ? (
+                <Form.Text className="text-danger">
+                  Please Enter Score
+                </Form.Text>
               ) : (
                 <div></div>
               )}
@@ -238,9 +284,16 @@ function AddGames(props) {
                 <NewGameForm
                   disabled={date === "" ? true : false}
                   game={5}
-                  gameScore={game5.score}
+                  gameScore={game5}
                   onGameChange={handleGameChange}
                 />
+              ) : (
+                <div></div>
+              )}
+              {val && game5 === 0 ? (
+                <Form.Text className="text-danger">
+                  Please Enter Score
+                </Form.Text>
               ) : (
                 <div></div>
               )}

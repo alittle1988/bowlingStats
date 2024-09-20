@@ -2,9 +2,10 @@ import ViewGamesTable from "../Tables/ViewGamesTable";
 import { Container, Row, Form, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import EditSeshForm from "../Forms/EditSeshForm";
 
 function ViewGames(props) {
-  const { user } = props;
+  const { user, onResetUser } = props;
   const [filteredList, setFilteredList] = useState([]);
   const [year, setYear] = useState(new Date().getFullYear());
   const [years, setYears] = useState(
@@ -26,6 +27,13 @@ function ViewGames(props) {
   ]);
   const [month, setMonth] = useState(months[new Date().getMonth()]);
   const [editSwitch, setEditSwitch] = useState(false);
+  const [editSesh, setEditSesh] = useState({});
+
+  function handleEditSwitch(selSesh) {
+    setEditSesh(selSesh);
+    
+    setEditSwitch(!editSwitch)
+  }
 
 
   function filterArrayByDate(from) {
@@ -97,11 +105,11 @@ function ViewGames(props) {
 
   useEffect(() => {
     filterArrayByDate(month);
-  }, [month]);
+  }, [month, user]);
   // filter sessions in date order
 
-  return (
-    <Container>
+  return (<>
+      {editSwitch ? <EditSeshForm user={user} onHandleEditSwitch={handleEditSwitch} sesh={editSesh} onResetUser={onResetUser} /> :<Container>
       <Row>
         <h4 className="text-center mt-5">View Games</h4>
       </Row>
@@ -137,14 +145,15 @@ function ViewGames(props) {
         </Col>
       </Row>
       <Row className="mt-5">
-        <ViewGamesTable filteredList={filteredList} user={user} />
-      </Row>
-    </Container>
-  );
+        <ViewGamesTable onHandleEditSwitch={handleEditSwitch} onResetUser={onResetUser} filteredList={filteredList} user={user} />
+      </Row> 
+    </Container>}
+  </>);
 }
 
 export default ViewGames;
 
 ViewGames.propTypes = {
   user: PropTypes.object,
+  onResetUser: PropTypes.func
 };

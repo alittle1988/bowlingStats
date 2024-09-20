@@ -15,7 +15,7 @@ function ProfileData(props) {
             <p className='profileData'>First Name: {user.firstName}</p>
             <p className='profileData'>Last Name: {user.lastName}</p>
             <p className='profileData'>Goal Average: {user.goalAvg}</p>
-            <p className='profileData'>Actual Average: {user.average}</p>
+            <p className='profileData'>Actual Average: {Math.floor(user.average * 10) / 10}</p>
             <p className='profileData'>Hand: {user.hand}</p>
             <p className='profileData'>Ball Size: {user.ballWeight}lbs</p>
 

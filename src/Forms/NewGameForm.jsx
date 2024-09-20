@@ -9,7 +9,7 @@ function NewGameForm(props) {
       <Form.Control
         disabled={disabled}
         id={`game${game}`}
-        className="w-50"
+        className="w-25"
         type="number"
         placeholder="Enter Game Score"
         min={0}
@@ -17,6 +17,7 @@ function NewGameForm(props) {
         value={gameScore}
         onChange={(e) => onGameChange(game, e.target.value)}
       ></Form.Control>
+      
       
     </Form.Group>
   );

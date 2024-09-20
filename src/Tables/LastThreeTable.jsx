@@ -23,7 +23,7 @@ function LastThreeTable(props) {
     return Math.floor(totAvg / lastThree.length);
   });
 
-  //figure out how to get last 3 of sessions to display in order in the table
+
 
   return (
     <Container>

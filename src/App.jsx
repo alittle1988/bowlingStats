@@ -79,7 +79,7 @@ function App() {
             }
           />
           <Route path="/addGames" element={<AddGames user={user} onResetUser={handleResetUser} />} />
-          <Route path="/viewGames" element={<ViewGames user={user} />} />
+          <Route path="/viewGames" element={<ViewGames user={user} onResetUser={handleResetUser} />} />
           <Route path="/editUser" element={<EditUser />} />
         </Routes>
       </Container>
