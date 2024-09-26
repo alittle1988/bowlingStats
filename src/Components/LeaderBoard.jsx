@@ -22,7 +22,7 @@ function LeaderBoard() {
     get("/users");
   }, []);
 
-  // figure out fetching data and displaying filterd list of leaderBoard
+  
   return (
     <Container>
       <Row>
