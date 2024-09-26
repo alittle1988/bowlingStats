@@ -70,7 +70,6 @@ function useFetch(baseUrl) {
       const data = await response;
       setLoading(false);
     } catch (error) {
-      
       setLoading(false);
     }
   }

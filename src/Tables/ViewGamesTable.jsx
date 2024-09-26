@@ -1,40 +1,36 @@
 import { Button, Container, Table } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import EditSeshForm from "../Forms/EditSeshForm";
+
 import useFetch from "../Hooks/useFetch";
 
 function ViewGamesTable(props) {
   const { user, filteredList, onHandleEditSwitch, onResetUser } = props;
-  const {put, loading} = useFetch('http://localhost:3000')
-  
+  const { put } = useFetch("http://localhost:3000");
 
   function handleDeleteClick(sesh) {
-    if ( confirm("Are you sure you want to delete the Session?")) {
+    if (confirm("Are you sure you want to delete the Session?")) {
       user.sessions.forEach((item, index) => {
-        if(sesh.id === item.id) {
-          user.sessions.splice(index, 1)
-          console.log("found It")
+        if (sesh.id === item.id) {
+          user.sessions.splice(index, 1);
         }
-      })
+      });
       let totPins = 0;
       let totGames = 0;
-      user.sessions.forEach(item => {
+      user.sessions.forEach((item) => {
         totPins += item.totalPins;
         totGames += item.numOfGames;
-      })
-      let newAvg = totPins/totGames;
-      onResetUser(user.sessions, newAvg)
-      put(`/users/${user._id}`, {sessions: user.sessions, average: newAvg})
+      });
+      let newAvg = totPins / totGames;
+      onResetUser(user.sessions, newAvg);
+      put(`/users/${user._id}`, { sessions: user.sessions, average: newAvg });
     }
-    
   }
 
   //  adding delete button functionality to all
 
   return (
     <Container>
-       <Table striped bordered hover responsive className="backgrd">
+      <Table striped bordered hover responsive className="backgrd">
         <thead>
           <tr className="text-center">
             <th>Date</th>
@@ -51,25 +47,46 @@ function ViewGamesTable(props) {
         <tbody>
           {filteredList.map((sesh, index) => {
             return (
-              <tr
-                key={index}
-                
-                className="text-center seshRow"
-              >
+              <tr key={index} className="text-center seshRow">
                 <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.date}</td>
                 <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game1}</td>
-                {sesh.game2 ? <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game2}</td> : <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>}
-                {sesh.game3 ? <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game3}</td> : <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>}
-                {sesh.game4 ? <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game4}</td> : <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>}
-                {sesh.game5 ? <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game5}</td> : <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>}
+                {sesh.game2 ? (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game2}</td>
+                ) : (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>
+                )}
+                {sesh.game3 ? (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game3}</td>
+                ) : (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>
+                )}
+                {sesh.game4 ? (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game4}</td>
+                ) : (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>
+                )}
+                {sesh.game5 ? (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.game5}</td>
+                ) : (
+                  <td onClick={() => onHandleEditSwitch(sesh)}>N/A</td>
+                )}
                 <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.seshAvg}</td>
-                <td onClick={() => onHandleEditSwitch(sesh)}>{sesh.totalPins}</td>
-                <td><Button onClick={() => handleDeleteClick(sesh)} className="btn btn-danger">Delete</Button></td>
+                <td onClick={() => onHandleEditSwitch(sesh)}>
+                  {sesh.totalPins}
+                </td>
+                <td>
+                  <Button
+                    onClick={() => handleDeleteClick(sesh)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </Button>
+                </td>
               </tr>
             );
           })}
         </tbody>
-      </Table> 
+      </Table>
     </Container>
   );
 }
@@ -80,5 +97,5 @@ ViewGamesTable.propTypes = {
   user: PropTypes.object,
   filteredList: PropTypes.array,
   onHandleEditSwitch: PropTypes.func,
-  onResetUser: PropTypes.func
+  onResetUser: PropTypes.func,
 };

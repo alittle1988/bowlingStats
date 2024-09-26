@@ -6,15 +6,14 @@ import LastThree from "./LastThree";
 function UserHome(props) {
   const { user } = props;
   return (
-    <Container >
+    <Container>
       <Row className="mt-5">
         <Col lg={4}>
           <ProfileData user={user} />
         </Col>
-        
+
         <Col lg={8}>
-          <LastThree user={user}>
-          </LastThree>
+          <LastThree user={user}></LastThree>
         </Col>
       </Row>
     </Container>

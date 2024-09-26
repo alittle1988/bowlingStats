@@ -17,8 +17,6 @@ function NewGameForm(props) {
         value={gameScore}
         onChange={(e) => onGameChange(game, e.target.value)}
       ></Form.Control>
-      
-      
     </Form.Group>
   );
 }
@@ -29,5 +27,5 @@ NewGameForm.propTypes = {
   game: PropTypes.number,
   onGameChange: PropTypes.func,
   gameScore: PropTypes.number,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };

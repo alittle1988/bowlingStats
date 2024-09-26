@@ -16,14 +16,14 @@ function LastThreeTable(props) {
     return totPins;
   });
   const [lastThreeAvg, setLastThreeAvg] = useState(() => {
-    let totAvg = 0;
+    let totpins = 0;
+    let totgames = 0
     lastThree.forEach((each) => {
-      totAvg += each.seshAvg;
+      totpins += each.totalPins
+      totgames += each.numOfGames
     });
-    return Math.floor(totAvg / lastThree.length);
+    return Math.floor(totpins / totgames);
   });
-
-
 
   return (
     <Container>

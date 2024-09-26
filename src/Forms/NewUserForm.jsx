@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 import useFetch from "../Hooks/useFetch";
 
 function NewUserForm(props) {
   const { onNewUserClick } = props;
-  const { post, results, loading } = useFetch("http://localhost:3000");
+  const { post, results } = useFetch("http://localhost:3000");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
@@ -15,7 +15,7 @@ function NewUserForm(props) {
   const [errorVal, setErrorVal] = useState("");
   const [hand, setHand] = useState("");
   const [ballWeight, setBallWeight] = useState("");
-  const [profilePic, setProfilePic] = useState("");
+  
 
   function handleSubmitClick(e) {
     e.preventDefault();
@@ -41,6 +41,8 @@ function NewUserForm(props) {
       dateJoined: new Date().toDateString(),
       games: [],
       average: 0,
+      gamesPlayed: 0,
+      highestGame: 0,
     };
 
     post(`/users`, newUser);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import NewGameForm from "../Forms/NewGameForm";
 import PropTypes from "prop-types";
@@ -16,7 +16,7 @@ function AddGames(props) {
   const [game4, setGame4] = useState(0);
   const [game5, setGame5] = useState(0);
   const [val, setVal] = useState(false);
-  const { put, results, loading } = useFetch("http://localhost:3000");
+  const { put, loading } = useFetch("http://localhost:3000");
 
   quantum.register();
 
@@ -46,10 +46,25 @@ function AddGames(props) {
 
   function handleAddGameSubmitClick(e) {
     e.preventDefault();
-
+    let hiGame = user.highestGame;
     if (date === "") {
       setVal(true);
       return;
+    }
+    if(game1 > hiGame) {
+      hiGame = game1
+    }
+     if(game2 > hiGame) {
+      hiGame = game2
+    }
+     if(game3 > hiGame) {
+      hiGame = game3
+    }
+     if(game4 > hiGame) {
+      hiGame = game4
+    }
+     if(game5 > hiGame) {
+      hiGame = game5
     }
 
     let totalPins =
@@ -60,7 +75,8 @@ function AddGames(props) {
       Number(game5);
     let seshAvg = totalPins / numGames;
     let newSesh = {};
-    const { sessions, average, ...rest } = user;
+    
+    let newSessions = user.sessions
     switch (numGames) {
       case 1:
         if (game1 === 0) {
@@ -152,16 +168,19 @@ function AddGames(props) {
         console.log("No Bueno");
         break;
     }
-    sessions.push(newSesh);
+    newSessions.push(newSesh);
+    let totalGamesPlayed = user.gamesPlayed
     let totalGames = 0;
     let totalPinsAmount = 0;
-    user.sessions.forEach((game) => {
+    newSessions.forEach((game) => {
       totalPinsAmount += game.totalPins;
       totalGames += game.numOfGames;
+      totalGamesPlayed =+ totalGames
+      
     });
     let newAverage = totalPinsAmount / totalGames;
     newAverage = Math.round(newAverage * 10) / 10;
-    onResetUser(sessions, newAverage);
+    onResetUser(newSessions, newAverage, totalGamesPlayed);
 
     setGame1(0);
     setGame2(0);
@@ -169,7 +188,7 @@ function AddGames(props) {
     setGame4(0);
     setGame5(0);
     setDate("");
-    put(`/users/${user._id}`, { sessions: sessions, average: newAverage });
+    put(`/users/${user._id}`, { sessions: newSessions, average: newAverage, gamesPlayed: totalGamesPlayed, highestGame: hiGame });
   }
 
   return (
@@ -238,7 +257,7 @@ function AddGames(props) {
               ) : (
                 <div></div>
               )}
-              {val && game2 === 0 ? (
+              {val && numGames >= 2 && game2 === 0 ? (
                 <Form.Text className="text-danger">
                   Please Enter Score
                 </Form.Text>
@@ -256,7 +275,7 @@ function AddGames(props) {
               ) : (
                 <div></div>
               )}
-              {val && game3 === 0 ? (
+              {val && numGames >= 3 && game3 === 0 ? (
                 <Form.Text className="text-danger">
                   Please Enter Score
                 </Form.Text>
@@ -273,7 +292,7 @@ function AddGames(props) {
               ) : (
                 <div></div>
               )}
-              {val && game4 === 0 ? (
+              {val && numGames >= 4 && game4 === 0 ? (
                 <Form.Text className="text-danger">
                   Please Enter Score
                 </Form.Text>
@@ -290,7 +309,7 @@ function AddGames(props) {
               ) : (
                 <div></div>
               )}
-              {val && game5 === 0 ? (
+              {val && numGames >= 5 && game5 === 0 ? (
                 <Form.Text className="text-danger">
                   Please Enter Score
                 </Form.Text>
@@ -312,4 +331,5 @@ export default AddGames;
 
 AddGames.propTypes = {
   user: PropTypes.object,
+  onResetUser: PropTypes.func,
 };

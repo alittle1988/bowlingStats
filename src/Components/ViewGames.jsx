@@ -31,10 +31,9 @@ function ViewGames(props) {
 
   function handleEditSwitch(selSesh) {
     setEditSesh(selSesh);
-    
-    setEditSwitch(!editSwitch)
-  }
 
+    setEditSwitch(!editSwitch);
+  }
 
   function filterArrayByDate(from) {
     let begin;
@@ -101,59 +100,73 @@ function ViewGames(props) {
     setFilteredList(newArray);
   }
 
-  
-
   useEffect(() => {
     filterArrayByDate(month);
   }, [month, user]);
   // filter sessions in date order
 
-  return (<>
-      {editSwitch ? <EditSeshForm user={user} onHandleEditSwitch={handleEditSwitch} sesh={editSesh} onResetUser={onResetUser} /> :<Container>
-      <Row>
-        <h4 className="text-center mt-5">View Games</h4>
-      </Row>
-      <Row>
-        <Col lg={6}>
-          <Form>
-            <Form.Label htmlFor="year">Year:</Form.Label>
-            <Form.Select
-              id="year"
-              className="w-50"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-            >
-              {years.map((year, index) => {
-                return <option key={index}>{Math.abs(year)}</option>;
-              })}
-            </Form.Select>
-          </Form>
-        </Col>
-        <Col lg={6}>
-          <Form.Label htmlFor="month">Month:</Form.Label>
-          <Form.Select
-            id="month"
-            className="w-50"
-            value={month}
-            onChange={(e) => setMonth(e.target.value)}
-          >
-            <option>{month}</option>
-            {months.map((month) => {
-              return <option key={month}>{month}</option>;
-            })}
-          </Form.Select>
-        </Col>
-      </Row>
-      <Row className="mt-5">
-        <ViewGamesTable onHandleEditSwitch={handleEditSwitch} onResetUser={onResetUser} filteredList={filteredList} user={user} />
-      </Row> 
-    </Container>}
-  </>);
+  return (
+    <>
+      {editSwitch ? (
+        <EditSeshForm
+          user={user}
+          onHandleEditSwitch={handleEditSwitch}
+          sesh={editSesh}
+          onResetUser={onResetUser}
+        />
+      ) : (
+        <Container>
+          <Row>
+            <h4 className="text-center mt-5">View Games</h4>
+          </Row>
+          <Row>
+            <Col lg={6}>
+              <Form>
+                <Form.Label htmlFor="year">Year:</Form.Label>
+                <Form.Select
+                  id="year"
+                  className="w-50"
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                >
+                  {years.map((year, index) => {
+                    return <option key={index}>{Math.abs(year)}</option>;
+                  })}
+                </Form.Select>
+              </Form>
+            </Col>
+            <Col lg={6}>
+              <Form.Label htmlFor="month">Month:</Form.Label>
+              <Form.Select
+                id="month"
+                className="w-50"
+                value={month}
+                onChange={(e) => setMonth(e.target.value)}
+              >
+                <option>{month}</option>
+                {months.map((month) => {
+                  return <option key={month}>{month}</option>;
+                })}
+              </Form.Select>
+            </Col>
+          </Row>
+          <Row className="mt-5">
+            <ViewGamesTable
+              onHandleEditSwitch={handleEditSwitch}
+              onResetUser={onResetUser}
+              filteredList={filteredList}
+              user={user}
+            />
+          </Row>
+        </Container>
+      )}
+    </>
+  );
 }
 
 export default ViewGames;
 
 ViewGames.propTypes = {
   user: PropTypes.object,
-  onResetUser: PropTypes.func
+  onResetUser: PropTypes.func,
 };
