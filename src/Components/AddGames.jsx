@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import useFetch from "../Hooks/useFetch.js";
 import { quantum } from "ldrs";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate} from "react-router-dom";
 
 function AddGames(props) {
   const { user, onResetUser } = props;
@@ -17,6 +18,7 @@ function AddGames(props) {
   const [game5, setGame5] = useState(0);
   const [val, setVal] = useState(false);
   const { put, loading } = useFetch("http://localhost:3000");
+  const navigate = useNavigate();
 
   quantum.register();
 
@@ -189,6 +191,8 @@ function AddGames(props) {
     setGame5(0);
     setDate("");
     put(`/users/${user._id}`, { sessions: newSessions, average: newAverage, gamesPlayed: totalGamesPlayed, highestGame: hiGame });
+    alert(`Games have been added!`)
+    navigate('/')
   }
 
   return (
@@ -316,9 +320,11 @@ function AddGames(props) {
               ) : (
                 <div></div>
               )}
+              
               <Button type="submit" className="mt-2">
                 Submit
               </Button>
+              
             </Form>
           </Col>
         </Row>

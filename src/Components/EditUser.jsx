@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import useFetch from "../Hooks/useFetch";
 import { quantum } from "ldrs";
+import { useNavigate } from "react-router-dom";
 
 function EditUser(props) {
   const { user, onEditUser } = props;
@@ -14,6 +15,7 @@ function EditUser(props) {
   const [newGoalAvg, setNewGoalAvg] = useState(user.goalAvg);
   const [newBallWeight, setNewBallWeight] = useState(user.ballWeight);
   const { put, loading } = useFetch("http://localhost:3000");
+  const navigate = useNavigate();
   quantum.register();
 
   
@@ -35,6 +37,7 @@ function EditUser(props) {
     onEditUser(updatedUser);
     put(`/users/${user._id}`, updatedUser);
     alert('User has been updated!')
+    navigate('/')
     
   }
 
